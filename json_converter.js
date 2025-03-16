@@ -24,7 +24,7 @@ const convertToJson = new TransformStream({
   firstChunk: true,
 
   transform(chunk, controller) {
-    const dataInArray = decodeText(chunk).split("\n").trim();
+    const dataInArray = decodeText(chunk).trim().split("\n");
 
     if (this.firstChunk) {
       this.firstChunk = false;
@@ -43,7 +43,7 @@ const convertToJson = new TransformStream({
 });
 
 const main = async () => {
-  const csvData = await Deno.open("./data.csv", { read: true });
+  const csvData = await Deno.open("./sample.csv", { read: true });
   const outputFile = await Deno.open("./output.json", {
     write: true,
     create: true,
